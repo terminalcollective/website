@@ -36,6 +36,10 @@ jobs:
         uses: taiki-e/install-action@v2
         with:
           tool: trunk
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
       - name: Build website
         run: trunk build --release
       - name: Upload artifact
