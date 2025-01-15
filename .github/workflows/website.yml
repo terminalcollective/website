@@ -41,7 +41,7 @@ jobs:
         with:
           targets: wasm32-unknown-unknown
       - name: Build website
-        run: trunk build --release --public-url https://terminalcollective.github.io/website
+        run: trunk build --release --public-url https://terminalcollective.org
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
