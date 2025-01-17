@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 ratzilla = "0.0.0-alpha.3"
 textwrap = "0.16.1"
+rand = { version = "0.8.5", features = ["small_rng"], default-features = false }

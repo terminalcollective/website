@@ -1,8 +1,12 @@
+mod game_of_life;
+
 use std::io;
 
+use game_of_life::{CellState, Grid};
 use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Offset, Rect};
 use ratzilla::ratatui::style::{Style, Stylize};
-use ratzilla::ratatui::widgets::{BorderType, Wrap};
+use ratzilla::ratatui::text::{Line, Text};
+use ratzilla::ratatui::widgets::{BorderType, Clear, Wrap};
 use ratzilla::ratatui::Frame;
 use ratzilla::ratatui::{
     layout::Alignment,
@@ -39,8 +43,12 @@ const LINKS: &[(&str, &str)] = &[
 fn main() -> io::Result<()> {
     let backend = DomBackend::new()?;
     let terminal = Terminal::new(backend)?;
+    let size = terminal.size()?;
+    let mut grid = Grid::new_random(size.width.into(), size.height.into());
 
     terminal.render_on_web(move |frame| {
+        render_game_of_life(&mut grid, frame);
+
         let vertical = Layout::vertical([Constraint::Percentage(80)]).flex(Flex::Center);
         let horizontal = Layout::horizontal([Constraint::Percentage(60)]).flex(Flex::Center);
         let [area] = vertical.areas(frame.area());
@@ -71,6 +79,14 @@ fn main() -> io::Result<()> {
     });
 
     Ok(())
+}
+
+fn render_game_of_life(grid: &mut Grid<CellState>, frame: &mut Frame<'_>) {
+    grid.update_states();
+    let grid_out = grid.to_string();
+    let lines: Vec<Line> = grid_out.lines().map(Line::from).collect();
+    let grid_text = Text::from(lines).fg(Color::Rgb(100, 100, 100));
+    frame.render_widget(Paragraph::new(grid_text), frame.area());
 }
 
 fn render_links(frame: &mut Frame<'_>, links_area: Rect) {
@@ -135,5 +151,6 @@ fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constrain
         )
         .title_bottom("|Website built with Ratzilla|".bold())
         .title_alignment(Alignment::Right);
+    frame.render_widget(Clear, area);
     frame.render_widget(block, area);
 }
