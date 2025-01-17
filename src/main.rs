@@ -41,6 +41,7 @@ const LINKS: &[(&str, &str)] = &[
 ];
 
 fn main() -> io::Result<()> {
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
     let backend = DomBackend::new()?;
     let terminal = Terminal::new(backend)?;
     let size = terminal.size()?;
@@ -128,7 +129,7 @@ fn render_banner(frame: &mut Frame<'_>, banner_area: Rect) {
 }
 
 fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constraint]) {
-    let area = Rect::new(
+    let mut area = Rect::new(
         area.x - 2,
         area.y - 1,
         area.width + 4,
@@ -141,6 +142,7 @@ fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constrain
             .sum::<u16>()
             + 3,
     );
+    area = area.clamp(frame.area());
     let block = Block::bordered()
         .border_type(BorderType::Rounded)
         .border_style(Color::Rgb(73, 222, 128))
