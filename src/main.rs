@@ -3,6 +3,7 @@ use std::io;
 use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Offset, Rect};
 use ratzilla::ratatui::style::{Style, Stylize};
 use ratzilla::ratatui::widgets::{BorderType, Wrap};
+use ratzilla::ratatui::Frame;
 use ratzilla::ratatui::{
     layout::Alignment,
     style::Color,
@@ -58,61 +59,81 @@ fn main() -> io::Result<()> {
             Constraint::Length(LINKS.len() as u16 + 2),
         ];
 
-        let background_area = Rect::new(
-            area.x - 2,
-            area.y - 1,
-            area.width + 4,
-            constraints
-                .iter()
-                .map(|c| match *c {
-                    Constraint::Min(v) | Constraint::Max(v) | Constraint::Length(v) => v,
-                    _ => 0,
-                })
-                .sum::<u16>()
-                + 3,
-        );
-        let block = Block::bordered()
-            .border_type(BorderType::Rounded)
-            .border_style(Color::Rgb(73, 222, 128))
-            .style(
-                Style::default()
-                    .fg(Color::Rgb(73, 222, 128))
-                    .bg(Color::Rgb(16, 24, 39)),
-            )
-            .title_bottom("|Website built with Ratzilla|".bold())
-            .title_alignment(Alignment::Right);
-        frame.render_widget(block, background_area);
+        render_background(frame, area, &constraints);
 
         let [banner_area, description_area, meetups_area, links_area] =
             Layout::vertical(constraints).areas(area);
 
-        frame.render_widget(
-            Paragraph::new(BANNER).alignment(Alignment::Center),
-            banner_area,
-        );
-        frame.render_widget(
-            Paragraph::new(description)
-                .wrap(Wrap { trim: true })
-                .left_aligned()
-                .block(Block::bordered()),
-            description_area,
-        );
-        frame.render_widget(
-            Paragraph::new("Coming soon!").block(Block::bordered().title("Meetups".bold())),
-            meetups_area,
-        );
-        frame.render_widget(Block::bordered().title("Links".bold()), links_area);
-        for (i, (_, url)) in LINKS.iter().enumerate() {
-            let link = Hyperlink::new(url);
-            frame.render_widget(
-                link,
-                links_area.offset(Offset {
-                    x: 1,
-                    y: i as i32 + 1,
-                }),
-            );
-        }
+        render_banner(frame, banner_area);
+        render_description(frame, description, description_area);
+        render_meetups(frame, meetups_area);
+        render_links(frame, links_area);
     });
 
     Ok(())
+}
+
+fn render_links(frame: &mut Frame<'_>, links_area: Rect) {
+    frame.render_widget(Block::bordered().title("Links".bold()), links_area);
+    for (i, (_, url)) in LINKS.iter().enumerate() {
+        let link = Hyperlink::new(url);
+        frame.render_widget(
+            link,
+            links_area.offset(Offset {
+                x: 1,
+                y: i as i32 + 1,
+            }),
+        );
+    }
+}
+
+fn render_meetups(frame: &mut Frame<'_>, meetups_area: Rect) {
+    frame.render_widget(
+        Paragraph::new("Coming soon!").block(Block::bordered().title("Meetups".bold())),
+        meetups_area,
+    );
+}
+
+fn render_description(frame: &mut Frame<'_>, description: String, description_area: Rect) {
+    frame.render_widget(
+        Paragraph::new(description)
+            .wrap(Wrap { trim: true })
+            .left_aligned()
+            .block(Block::bordered()),
+        description_area,
+    );
+}
+
+fn render_banner(frame: &mut Frame<'_>, banner_area: Rect) {
+    frame.render_widget(
+        Paragraph::new(BANNER).alignment(Alignment::Center),
+        banner_area,
+    );
+}
+
+fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constraint]) {
+    let area = Rect::new(
+        area.x - 2,
+        area.y - 1,
+        area.width + 4,
+        constraints
+            .iter()
+            .map(|c| match *c {
+                Constraint::Min(v) | Constraint::Max(v) | Constraint::Length(v) => v,
+                _ => 0,
+            })
+            .sum::<u16>()
+            + 3,
+    );
+    let block = Block::bordered()
+        .border_type(BorderType::Rounded)
+        .border_style(Color::Rgb(73, 222, 128))
+        .style(
+            Style::default()
+                .fg(Color::Rgb(73, 222, 128))
+                .bg(Color::Rgb(16, 24, 39)),
+        )
+        .title_bottom("|Website built with Ratzilla|".bold())
+        .title_alignment(Alignment::Right);
+    frame.render_widget(block, area);
 }
