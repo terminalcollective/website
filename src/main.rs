@@ -1,6 +1,6 @@
 use std::io;
 
-use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Margin, Offset};
+use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Offset, Rect};
 use ratzilla::ratatui::style::{Style, Stylize};
 use ratzilla::ratatui::widgets::{BorderType, Wrap};
 use ratzilla::ratatui::{
@@ -22,8 +22,10 @@ const BANNER: &str = r#"
 "#;
 
 const DESCRIPTION: &str = r#"
-Terminal Collective is a community for open-source terminal software enthusiasts.
+>_ Terminal Collective is a community for open-source terminal software enthusiasts.
+
 We bring together developers of terminal software and users who share a passion for the terminal and its ecosystem.
+
 Our goal is to create a space where people can share their work, learn from each other, and collaborate on terminal-related projects.
 "#;
 
@@ -39,10 +41,36 @@ fn main() -> io::Result<()> {
 
     terminal.render_on_web(move |frame| {
         let vertical = Layout::vertical([Constraint::Percentage(80)]).flex(Flex::Center);
-        let horizontal = Layout::horizontal([Constraint::Percentage(80)]).flex(Flex::Center);
+        let horizontal = Layout::horizontal([Constraint::Percentage(60)]).flex(Flex::Center);
         let [area] = vertical.areas(frame.area());
         let [area] = horizontal.areas(area);
 
+        let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 15)
+            .iter()
+            .map(|line| line.to_string())
+            .collect::<Vec<String>>()
+            .join("\n");
+
+        let constraints = [
+            Constraint::Length(BANNER.lines().count() as u16 + 1),
+            Constraint::Length(description.lines().count() as u16 + 2),
+            Constraint::Length(3),
+            Constraint::Length(LINKS.len() as u16 + 2),
+        ];
+
+        let background_area = Rect::new(
+            area.x - 2,
+            area.y - 1,
+            area.width + 4,
+            constraints
+                .iter()
+                .map(|c| match *c {
+                    Constraint::Min(v) | Constraint::Max(v) | Constraint::Length(v) => v,
+                    _ => 0,
+                })
+                .sum::<u16>()
+                + 3,
+        );
         let block = Block::bordered()
             .border_type(BorderType::Rounded)
             .border_style(Color::Rgb(73, 222, 128))
@@ -53,24 +81,10 @@ fn main() -> io::Result<()> {
             )
             .title_bottom("|Website built with Ratzilla|".bold())
             .title_alignment(Alignment::Right);
-        frame.render_widget(block, area);
+        frame.render_widget(block, background_area);
 
-        let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 10)
-            .iter()
-            .map(|line| line.to_string())
-            .collect::<Vec<String>>()
-            .join("\n");
-
-        let [banner_area, description_area, meetups_area, links_area] = Layout::vertical([
-            Constraint::Length(BANNER.lines().count() as u16 + 1),
-            Constraint::Length(description.lines().count() as u16 + 1),
-            Constraint::Length(3),
-            Constraint::Length(5),
-        ])
-        .areas(area.offset(Offset { x: -1, y: 0 }).inner(Margin {
-            horizontal: 5,
-            vertical: 0,
-        }));
+        let [banner_area, description_area, meetups_area, links_area] =
+            Layout::vertical(constraints).areas(area);
 
         frame.render_widget(
             Paragraph::new(BANNER).alignment(Alignment::Center),
@@ -88,7 +102,6 @@ fn main() -> io::Result<()> {
             meetups_area,
         );
         frame.render_widget(Block::bordered().title("Links".bold()), links_area);
-
         for (i, (_, url)) in LINKS.iter().enumerate() {
             let link = Hyperlink::new(url);
             frame.render_widget(
