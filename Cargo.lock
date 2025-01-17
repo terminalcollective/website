@@ -258,12 +258,13 @@ dependencies = [
 
 [[package]]
 name = "ratzilla"
-version = "0.0.0-alpha.2"
+version = "0.0.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c6108dcba5873fd2a542a5f239b4bb2ae36b8a5b649e007c587e3196ceaf6990"
+checksum = "abccb7a416c779079badde8de850ce7e6941aceb3d4f60b1f38b50c3f48d2d28"
 dependencies = [
  "console_error_panic_hook",
  "ratatui",
+ "thiserror",
  "web-sys",
 ]
 
@@ -347,6 +348,26 @@ dependencies = [
  "smawk",
  "unicode-linebreak",
  "unicode-width 0.1.14",
+]
+
+[[package]]
+name = "thiserror"
+version = "2.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d452f284b73e6d76dd36758a0c8684b1d5be31f92b89d07fd5822175732206fc"
+dependencies = [
+ "thiserror-impl",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "2.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26afc1baea8a989337eeb52b6e72a039780ce45c3edfcc9c5b9d112feeb173c2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

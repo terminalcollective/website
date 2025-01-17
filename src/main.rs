@@ -34,7 +34,7 @@ const LINKS: &[(&str, &str)] = &[
 ];
 
 fn main() -> io::Result<()> {
-    let backend = DomBackend::new();
+    let backend = DomBackend::new()?;
     let terminal = Terminal::new(backend)?;
 
     terminal.render_on_web(move |frame| {
