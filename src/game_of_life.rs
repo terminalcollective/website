@@ -5,8 +5,6 @@ use std::{
     ops::{Add, Index},
 };
 
-use rand::{rngs::SmallRng, Rng, SeedableRng};
-
 type Coord = i32;
 
 pub const NORTH: Point = Point::new(0, -1);
@@ -125,12 +123,14 @@ impl Grid<CellState> {
     }
 
     pub fn new_random(width: usize, height: usize) -> Self {
-        let mut rng = SmallRng::seed_from_u64(0);
         let size = width * height;
         let cells: Vec<CellState> = (0..size)
-            .map(|_| match rng.gen_range(0..=1) {
-                0 => CellState::Alive,
-                _ => CellState::Dead,
+            .map(|_| {
+                if fastrand::bool() {
+                    CellState::Alive
+                } else {
+                    CellState::Dead
+                }
             })
             .collect();
         Grid {
