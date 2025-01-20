@@ -273,9 +273,9 @@ dependencies = [
 
 [[package]]
 name = "ratzilla"
-version = "0.0.0-alpha.3"
+version = "0.0.0-alpha.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abccb7a416c779079badde8de850ce7e6941aceb3d4f60b1f38b50c3f48d2d28"
+checksum = "9a7855b9855a6e42592a44779cd12c05f4cdf6208ba3a5340305d86f0e58b88d"
 dependencies = [
  "console_error_panic_hook",
  "ratatui",
