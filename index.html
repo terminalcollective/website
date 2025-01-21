@@ -2,22 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css"
+    />
     <title>Terminal Collective</title>
     <style>
       body {
-        align-content: center;
-        height: 100vh;
-        width: 100%;
         margin: 0;
-        font-family: "Courier New", Courier, monospace;
-        background-color: #000;
-        font-size: 16px;
-        align-content: center;
+        width: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        align-content: center;
+        background-color: #000;
+      }
+      pre {
+        font-family: "Fira Code", monospace;
+        font-size: 16px;
+        margin: 0px;
+      }
+      @media (max-width: 480px) {
+        pre {
+          font-size: 3vw;
+        }
       }
     </style>
   </head>
