@@ -91,7 +91,7 @@ fn render_game_of_life(grid: &mut Grid<CellState>, frame: &mut Frame<'_>) {
 fn render_links(frame: &mut Frame<'_>, links_area: Rect) {
     frame.render_widget(Block::bordered().title("Links".bold()), links_area);
     for (i, (_, url)) in LINKS.iter().enumerate() {
-        let link = Hyperlink::new(url);
+        let link = Hyperlink::new(*url);
         frame.render_widget(
             link,
             links_area.offset(Offset {
