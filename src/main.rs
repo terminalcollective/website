@@ -1,8 +1,6 @@
-mod game_of_life;
-
 use std::io;
 
-use game_of_life::{CellState, Grid};
+use gridlife::{CellState, Grid};
 use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Offset, Rect};
 use ratzilla::ratatui::style::{Style, Stylize};
 use ratzilla::ratatui::text::{Line, Text};

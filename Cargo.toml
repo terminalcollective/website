@@ -7,4 +7,4 @@ edition = "2021"
 ratzilla = "0.0.0-alpha.4"
 textwrap = "0.16.1"
 console_error_panic_hook = "0.1.7"
-fastrand = { version = "2.3.0", features = ["js"] }
+gridlife = "0.0.1"

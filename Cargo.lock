@@ -147,6 +147,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "gridlife"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f4991daf4f269dc09e1a7695f5ed3c334efaf460b54464e52cc820de06023f73"
+dependencies = [
+ "fastrand",
+]
+
+[[package]]
 name = "hashbrown"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -364,7 +373,7 @@ name = "terminalcollective-website"
 version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
- "fastrand",
+ "gridlife",
  "ratzilla",
  "textwrap",
 ]
