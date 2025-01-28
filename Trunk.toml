@@ -1,0 +1,3 @@
+[build]
+minify = "on_release"
+public_url = "https://terminalcollective.org"

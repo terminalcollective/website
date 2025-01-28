@@ -12,8 +12,9 @@ use ratzilla::ratatui::{
     widgets::{Block, Paragraph},
     Terminal,
 };
+use ratzilla::utils::is_mobile;
 use ratzilla::widgets::Hyperlink;
-use ratzilla::{DomBackend, RenderOnWeb};
+use ratzilla::{DomBackend, WebRenderer};
 
 const BANNER: &str = r#"
   _______                  _             _    _____      _ _           _   _           
@@ -45,36 +46,57 @@ fn main() -> io::Result<()> {
     let size = terminal.size()?;
     let mut grid = Grid::new_random(size.width.into(), size.height.into());
 
-    terminal.render_on_web(move |frame| {
+    terminal.draw_web(move |frame| {
         render_game_of_life(&mut grid, frame);
 
-        let vertical = Layout::vertical([Constraint::Percentage(80)]).flex(Flex::Center);
-        let horizontal = Layout::horizontal([Constraint::Percentage(60)]).flex(Flex::Center);
-        let [area] = vertical.areas(frame.area());
-        let [area] = horizontal.areas(area);
+        let area = if is_mobile() {
+            let vertical = Layout::vertical([Constraint::Percentage(30)]).flex(Flex::Center);
+            let horizontal = Layout::horizontal([Constraint::Percentage(80)]).flex(Flex::Center);
+            let [area] = vertical.areas(frame.area());
+            let [area] = horizontal.areas(area);
+            area
+        } else {
+            let vertical = Layout::vertical([Constraint::Percentage(80)]).flex(Flex::Center);
+            let horizontal = Layout::horizontal([Constraint::Percentage(60)]).flex(Flex::Center);
+            let [area] = vertical.areas(frame.area());
+            let [area] = horizontal.areas(area);
+            area
+        };
 
-        let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 15)
-            .iter()
-            .map(|line| line.to_string())
-            .collect::<Vec<String>>()
-            .join("\n");
-
-        let constraints = [
-            Constraint::Length(BANNER.lines().count() as u16 + 1),
-            Constraint::Length(description.lines().count() as u16 + 2),
-            Constraint::Length(3),
-            Constraint::Length(LINKS.len() as u16 + 2),
-        ];
-
-        render_background(frame, area, &constraints);
-
-        let [banner_area, description_area, meetups_area, links_area] =
-            Layout::vertical(constraints).areas(area);
-
-        render_banner(frame, banner_area);
-        render_description(frame, description, description_area);
-        render_meetups(frame, meetups_area);
-        render_links(frame, links_area);
+        if is_mobile() {
+            let constraints = [
+                Constraint::Length(3),
+                Constraint::Length(LINKS.len() as u16 + 2),
+            ];
+            render_background(
+                frame,
+                area,
+                Some("Terminal Collective".to_string()),
+                &constraints,
+            );
+            let [meetups_area, links_area] = Layout::vertical(constraints).areas(area);
+            render_meetups(frame, meetups_area);
+            render_links(frame, links_area);
+        } else {
+            let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 15)
+                .iter()
+                .map(|line| line.to_string())
+                .collect::<Vec<String>>()
+                .join("\n");
+            let constraints = [
+                Constraint::Length(BANNER.lines().count() as u16 + 1),
+                Constraint::Length(description.lines().count() as u16 + 2),
+                Constraint::Length(3),
+                Constraint::Length(LINKS.len() as u16 + 2),
+            ];
+            render_background(frame, area, None, &constraints);
+            let [banner_area, description_area, meetups_area, links_area] =
+                Layout::vertical(constraints).areas(area);
+            render_banner(frame, banner_area);
+            render_description(frame, description, description_area);
+            render_meetups(frame, meetups_area);
+            render_links(frame, links_area);
+        }
     });
 
     Ok(())
@@ -126,7 +148,12 @@ fn render_banner(frame: &mut Frame<'_>, banner_area: Rect) {
     );
 }
 
-fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constraint]) {
+fn render_background(
+    frame: &mut Frame<'_>,
+    area: Rect,
+    title: Option<String>,
+    constraints: &[Constraint],
+) {
     let mut area = Rect::new(
         area.x - 2,
         area.y - 1,
@@ -141,7 +168,7 @@ fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constrain
             + 3,
     );
     area = area.clamp(frame.area());
-    let block = Block::bordered()
+    let mut block = Block::bordered()
         .border_type(BorderType::Rounded)
         .border_style(Color::Rgb(73, 222, 128))
         .style(
@@ -149,8 +176,11 @@ fn render_background(frame: &mut Frame<'_>, area: Rect, constraints: &[Constrain
                 .fg(Color::Rgb(73, 222, 128))
                 .bg(Color::Rgb(16, 24, 39)),
         )
-        .title_bottom("|Website built with Ratzilla|".bold())
+        .title_bottom("|built with Ratzilla|")
         .title_alignment(Alignment::Right);
+    if let Some(title) = title {
+        block = block.title_top(Line::from(title).alignment(Alignment::Center).bold());
+    }
     frame.render_widget(Clear, area);
     frame.render_widget(block, area);
 }
