@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ratzilla = "0.0.0-alpha.6"
-textwrap = "0.16.1"
+ratzilla = "0.0.5"
+textwrap = "0.16.2"
 console_error_panic_hook = "0.1.7"
-gridlife = "0.0.1"
+gridlife = "0.0.2"
