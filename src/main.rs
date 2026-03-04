@@ -49,57 +49,58 @@ fn main() -> io::Result<()> {
     terminal.draw_web(move |frame| {
         render_game_of_life(&mut grid, frame);
 
-        let area = if is_mobile() {
-            let vertical = Layout::vertical([Constraint::Percentage(30)]).flex(Flex::Center);
-            let horizontal = Layout::horizontal([Constraint::Percentage(80)]).flex(Flex::Center);
-            let [area] = vertical.areas(frame.area());
-            let [area] = horizontal.areas(area);
-            area
-        } else {
-            let vertical = Layout::vertical([Constraint::Percentage(80)]).flex(Flex::Center);
-            let horizontal = Layout::horizontal([Constraint::Percentage(60)]).flex(Flex::Center);
-            let [area] = vertical.areas(frame.area());
-            let [area] = horizontal.areas(area);
-            area
-        };
+        let (vert_perc, hori_perc) = if is_mobile() { (30, 80) } else { (80, 60) };
+
+        let vertical = Layout::vertical([Constraint::Percentage(vert_perc)]).flex(Flex::Center);
+        let horizontal = Layout::horizontal([Constraint::Percentage(hori_perc)]).flex(Flex::Center);
+        let [area] = vertical.areas(frame.area());
+        let [area] = horizontal.areas(area);
 
         if is_mobile() {
-            let constraints = [
-                Constraint::Length(3),
-                Constraint::Length(LINKS.len() as u16 + 2),
-            ];
-            render_background(
-                frame,
-                area,
-                Some("Terminal Collective".to_string()),
-                &constraints,
-            );
-            let [meetups_area, links_area] = Layout::vertical(constraints).areas(area);
-            render_meetups(frame, meetups_area);
-            render_links(frame, links_area);
+            render_mobile(area, frame);
         } else {
-            let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 15)
-                .iter()
-                .map(|line| line.to_string())
-                .collect::<Vec<String>>()
-                .join("\n");
-            let constraints = [
-                Constraint::Length(BANNER.lines().count() as u16 + 1),
-                Constraint::Length(description.lines().count() as u16 + 2),
-                Constraint::Length(3),
-                Constraint::Length(LINKS.len() as u16 + 2),
-            ];
-            render_background(frame, area, None, &constraints);
-            let [banner_area, description_area, meetups_area, links_area] =
-                Layout::vertical(constraints).areas(area);
-            render_banner(frame, banner_area);
-            render_description(frame, description, description_area);
-            render_meetups(frame, meetups_area);
-            render_links(frame, links_area);
+            render_desktop(area, frame);
         }
     });
 
     Ok(())
+}
+
+fn render_mobile(area: Rect, frame: &mut Frame) {
+    let constraints = [
+        Constraint::Length(3),
+        Constraint::Length(LINKS.len() as u16 + 2),
+    ];
+    render_background(
+        frame,
+        area,
+        Some("Terminal Collective".to_string()),
+        &constraints,
+    );
+    let [meetups_area, links_area] = Layout::vertical(constraints).areas(area);
+    render_meetups(frame, meetups_area);
+    render_links(frame, links_area);
+}
+
+fn render_desktop(area: Rect, frame: &mut Frame) {
+    let description = textwrap::wrap(DESCRIPTION.trim(), area.width as usize - 15)
+        .iter()
+        .map(|line| line.to_string())
+        .collect::<Vec<String>>()
+        .join("\n");
+    let constraints = [
+        Constraint::Length(BANNER.lines().count() as u16 + 1),
+        Constraint::Length(description.lines().count() as u16 + 2),
+        Constraint::Length(3),
+        Constraint::Length(LINKS.len() as u16 + 2),
+    ];
+    render_background(frame, area, None, &constraints);
+    let [banner_area, description_area, meetups_area, links_area] =
+        Layout::vertical(constraints).areas(area);
+    render_banner(frame, banner_area);
+    render_description(frame, description, description_area);
+    render_meetups(frame, meetups_area);
+    render_links(frame, links_area);
 }
 
 fn render_game_of_life(grid: &mut Grid<CellState>, frame: &mut Frame<'_>) {
