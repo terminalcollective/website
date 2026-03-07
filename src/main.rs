@@ -3,7 +3,7 @@ use std::io;
 use gridlife::{CellState, Grid};
 use ratzilla::ratatui::layout::{Constraint, Flex, Layout, Offset, Rect};
 use ratzilla::ratatui::style::{Style, Stylize};
-use ratzilla::ratatui::text::{Line, Text};
+use ratzilla::ratatui::text::{Line, Span, Text};
 use ratzilla::ratatui::widgets::{BorderType, Clear, Wrap};
 use ratzilla::ratatui::Frame;
 use ratzilla::ratatui::{
@@ -37,6 +37,7 @@ const LINKS: &[(&str, &str)] = &[
     ("GitHub", "https://github.com/terminalcollective"),
     ("Discord", "https://discord.gg/6EUERBrAMs"),
     ("Twitter", "https://www.youtube.com/@TerminalCollectiveOrg"),
+    ("RSS", "https://terminalcollective.org/feed.xml"),
 ];
 
 fn main() -> io::Result<()> {
@@ -113,12 +114,22 @@ fn render_game_of_life(grid: &mut Grid<CellState>, frame: &mut Frame<'_>) {
 
 fn render_links(frame: &mut Frame<'_>, links_area: Rect) {
     frame.render_widget(Block::bordered().title("Links".bold()), links_area);
-    for (i, (_, url)) in LINKS.iter().enumerate() {
+    for (i, (text, url)) in LINKS.iter().enumerate() {
+        let label = Span::raw(*text);
         let link = Hyperlink::new(*url);
+
+        frame.render_widget(
+            label,
+            links_area.offset(Offset {
+                x: 1,
+                y: i as i32 + 1,
+            }),
+        );
+
         frame.render_widget(
             link,
             links_area.offset(Offset {
-                x: 1,
+                x: 10,
                 y: i as i32 + 1,
             }),
         );
