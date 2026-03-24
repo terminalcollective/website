@@ -36,7 +36,7 @@ Our goal is to create a space where people can share their work, learn from each
 const LINKS: &[(&str, &str)] = &[
     ("GitHub", "https://github.com/terminalcollective"),
     ("Discord", "https://discord.gg/6EUERBrAMs"),
-    ("Twitter", "https://www.youtube.com/@TerminalCollectiveOrg"),
+    ("YouTube", "https://www.youtube.com/@TerminalCollectiveOrg"),
     ("RSS", "https://terminalcollective.org/feed.xml"),
 ];
 
