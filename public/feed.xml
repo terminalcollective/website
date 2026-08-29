@@ -4,7 +4,55 @@
         <title>Terminal Collective</title>
         <link>https://terminalcollective.org/</link>
         <description>Recent content for the Terminal Collective</description>
-        <lastBuildDate>Wed, 04 Mar 2026 20:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 28 Aug 2026 19:02:25 +0000</lastBuildDate>
         <language>en-us</language>
+        <item>
+            <title>A Modern Terminal Multiplexer w/ Aram Drevekenin [Zellij] (TT #8)</title>
+            <link>https://www.youtube.com/watch?v=AX6U-vVvpe0</link>
+            <guid isPermaLink="false">yt:video:AX6U-vVvpe0</guid>
+            <pubDate>Fri, 28 Aug 2026 19:02:25 +0000</pubDate>
+        </item>
+        <item>
+            <title>A Clubhouse in the Terminal w/ Mateusz Piórowski [late.sh] (TT #7)</title>
+            <link>https://www.youtube.com/watch?v=hU4NpyfEf_o</link>
+            <guid isPermaLink="false">yt:video:hU4NpyfEf_o</guid>
+            <pubDate>Tue, 18 Aug 2026 12:07:49 +0000</pubDate>
+        </item>
+        <item>
+            <title>Rendering Glyphs in the Terminal w/ Raphael Amorim [Rio, Jam and Boo] (TT #6)</title>
+            <link>https://www.youtube.com/watch?v=7uxXyjwp2cI</link>
+            <guid isPermaLink="false">yt:video:7uxXyjwp2cI</guid>
+            <pubDate>Tue, 09 Jun 2026 12:41:44 +0000</pubDate>
+        </item>
+        <item>
+            <title>Making Music in the Terminal w/ Christian Grothe [grainiac, SuperCollider, tmux, nvim] (TT #5)</title>
+            <link>https://www.youtube.com/watch?v=lWVUaP8-yKs</link>
+            <guid isPermaLink="false">yt:video:lWVUaP8-yKs</guid>
+            <pubDate>Wed, 20 May 2026 09:13:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>Terminal Web w/ Igor Chubin [cheat.sh, wttr.in, rate.sx] (TT #4)</title>
+            <link>https://www.youtube.com/watch?v=jXF0REYUk7A</link>
+            <guid isPermaLink="false">yt:video:jXF0REYUk7A</guid>
+            <pubDate>Tue, 05 May 2026 10:56:03 +0000</pubDate>
+        </item>
+        <item>
+            <title>Doing Terminal Presentations w/ Matias Fontanini [fish, neovim &amp; presenterm] (TT #3)</title>
+            <link>https://www.youtube.com/watch?v=Hiz7MDdo5FQ</link>
+            <guid isPermaLink="false">yt:video:Hiz7MDdo5FQ</guid>
+            <pubDate>Wed, 15 Apr 2026 12:49:55 +0000</pubDate>
+        </item>
+        <item>
+            <title>Using Linux on Windows w/ Mark Hegreberg [WSL, Arch Linux &amp; PowerToys] (TT #2)</title>
+            <link>https://www.youtube.com/watch?v=cLWLV-GGBMY</link>
+            <guid isPermaLink="false">yt:video:cLWLV-GGBMY</guid>
+            <pubDate>Tue, 31 Mar 2026 13:11:31 +0000</pubDate>
+        </item>
+        <item>
+            <title>Using Git/GitHub From The Terminal w/ Dolev Hadar [tmux, neovim &amp; gh-dash] (TT #1)</title>
+            <link>https://www.youtube.com/watch?v=Q_-qOpwDBb0</link>
+            <guid isPermaLink="false">yt:video:Q_-qOpwDBb0</guid>
+            <pubDate>Wed, 18 Mar 2026 10:01:35 +0000</pubDate>
+        </item>
     </channel>
 </rss>
