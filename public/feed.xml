@@ -4,8 +4,14 @@
         <title>Terminal Collective</title>
         <link>https://terminalcollective.org/</link>
         <description>Recent content for the Terminal Collective</description>
-        <lastBuildDate>Fri, 28 Aug 2026 19:02:25 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 02 Sep 2026 20:57:31 +0000</lastBuildDate>
         <language>en-us</language>
+        <item>
+            <title>Making Shell History Magical w/ Ellie Huxtable [Atuin] (TT #9)</title>
+            <link>https://www.youtube.com/watch?v=Ki_Kcl2M11M</link>
+            <guid isPermaLink="false">yt:video:Ki_Kcl2M11M</guid>
+            <pubDate>Wed, 02 Sep 2026 20:57:31 +0000</pubDate>
+        </item>
         <item>
             <title>A Modern Terminal Multiplexer w/ Aram Drevekenin [Zellij] (TT #8)</title>
             <link>https://www.youtube.com/watch?v=AX6U-vVvpe0</link>
