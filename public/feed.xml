@@ -4,8 +4,14 @@
         <title>Terminal Collective</title>
         <link>https://terminalcollective.org/</link>
         <description>Recent content for the Terminal Collective</description>
-        <lastBuildDate>Wed, 02 Sep 2026 20:57:31 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 15 Sep 2026 19:41:34 +0000</lastBuildDate>
         <language>en-us</language>
+        <item>
+            <title>Building TUIs with TypeScript &amp; Zig w/ Sebastian Herrlinger [OpenTUI] (TT #10)</title>
+            <link>https://www.youtube.com/watch?v=ohfWF6SALXI</link>
+            <guid isPermaLink="false">yt:video:ohfWF6SALXI</guid>
+            <pubDate>Tue, 15 Sep 2026 19:41:34 +0000</pubDate>
+        </item>
         <item>
             <title>Making Shell History Magical w/ Ellie Huxtable [Atuin] (TT #9)</title>
             <link>https://www.youtube.com/watch?v=Ki_Kcl2M11M</link>
@@ -31,7 +37,7 @@
             <pubDate>Tue, 09 Jun 2026 12:41:44 +0000</pubDate>
         </item>
         <item>
-            <title>Making Music in the Terminal w/ Christian Grothe [grainiac, SuperCollider, tmux, nvim] (TT #5)</title>
+            <title>Making Music in the Terminal w/ Christian Grothe [grainiac, SuperCollider] (TT #5)</title>
             <link>https://www.youtube.com/watch?v=lWVUaP8-yKs</link>
             <guid isPermaLink="false">yt:video:lWVUaP8-yKs</guid>
             <pubDate>Wed, 20 May 2026 09:13:00 +0000</pubDate>
@@ -43,7 +49,7 @@
             <pubDate>Tue, 05 May 2026 10:56:03 +0000</pubDate>
         </item>
         <item>
-            <title>Doing Terminal Presentations w/ Matias Fontanini [fish, neovim &amp; presenterm] (TT #3)</title>
+            <title>Doing Terminal Presentations w/ Matias Fontanini [presenterm] (TT #3)</title>
             <link>https://www.youtube.com/watch?v=Hiz7MDdo5FQ</link>
             <guid isPermaLink="false">yt:video:Hiz7MDdo5FQ</guid>
             <pubDate>Wed, 15 Apr 2026 12:49:55 +0000</pubDate>
@@ -55,7 +61,7 @@
             <pubDate>Tue, 31 Mar 2026 13:11:31 +0000</pubDate>
         </item>
         <item>
-            <title>Using Git/GitHub From The Terminal w/ Dolev Hadar [tmux, neovim &amp; gh-dash] (TT #1)</title>
+            <title>Using Git/GitHub From The Terminal w/ Dolev Hadar [gh-dash] (TT #1)</title>
             <link>https://www.youtube.com/watch?v=Q_-qOpwDBb0</link>
             <guid isPermaLink="false">yt:video:Q_-qOpwDBb0</guid>
             <pubDate>Wed, 18 Mar 2026 10:01:35 +0000</pubDate>
